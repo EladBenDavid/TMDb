@@ -1,11 +1,13 @@
 package com.tikal.themovie.ui.listeners;
 
-import android.view.View;
+
+
+import com.tikal.themovie.service.repository.storge.model.Movie;
 
 /**
  * Created by Elad on 6/25/2018.
  */
 
 public interface ItemClickListener {
-    void OnItemClick(View view, int position);
+    void OnItemClick(Movie movie);
 }

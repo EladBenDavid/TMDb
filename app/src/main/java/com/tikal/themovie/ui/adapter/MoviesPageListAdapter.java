@@ -1,6 +1,8 @@
 package com.tikal.themovie.ui.adapter;
 
+import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,5 +91,14 @@ public class MoviesPageListAdapter extends PagedListAdapter<Movie, RecyclerView.
             notifyItemChanged(getItemCount() - 1);
         }
     }
+
+    @Override
+    public void onCurrentListChanged(@Nullable PagedList<Movie> currentList) {
+        super.onCurrentListChanged(currentList);
+        if(currentList != null && currentList.size() > 0) {
+            //itemClickListener.OnItemClick(currentList.get(0));
+        }
+    }
+
 
 }

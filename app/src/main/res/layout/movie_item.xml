@@ -32,7 +32,7 @@
                 android:paddingLeft="@dimen/movie_title_padding"
                 android:paddingRight="@dimen/movie_title_padding"
                 android:paddingTop="@dimen/movie_title_padding"
-                android:textColor="@color/movie_title"
+                android:textColor="@color/primaryText"
                 android:textSize="@dimen/movie_title"/>
 
             <TextView
@@ -43,7 +43,7 @@
                 android:paddingLeft="@dimen/movie_title_padding"
                 android:paddingRight="@dimen/movie_title_padding"
                 android:paddingBottom="@dimen/user_rating_padding_button"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/accent"
                 android:textSize="@dimen/user_rating"/>
 
         </RelativeLayout>

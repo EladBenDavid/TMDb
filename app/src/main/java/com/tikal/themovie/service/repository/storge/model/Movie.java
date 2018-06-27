@@ -4,6 +4,8 @@ package com.tikal.themovie.service.repository.storge.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 
@@ -18,7 +20,7 @@ import org.parceler.Parcel;
 
 
 @Entity(tableName = "movies")
-public class Movie {
+public class Movie extends BaseObservable {
 
     @PrimaryKey()
     @ColumnInfo(name = "id") @SerializedName(value="id") private Integer mId;
@@ -48,7 +50,7 @@ public class Movie {
             return oldItem.getId().equals(newItem.getId());
         }
     };
-
+    @Bindable
     public Integer getId() {
         return mId;
     }
@@ -56,7 +58,7 @@ public class Movie {
     public void setId(Integer mId) {
         this.mId = mId;
     }
-
+    @Bindable
     public Integer getVoteCount() {
         return mVoteCount;
     }
@@ -64,15 +66,14 @@ public class Movie {
     public void setVoteCount(Integer mVoteCount) {
         this.mVoteCount = mVoteCount;
     }
-
-
-
+    @Bindable
     public Boolean getVideo() {
         return mVideo;
     }
     public void setVideo(Boolean mVideo) {
         this.mVideo = mVideo;
     }
+    @Bindable
     public Float getVoteAverage() {
         return mVoteAverage;
     }
@@ -80,7 +81,7 @@ public class Movie {
     public void setVoteAverage(Float mVoteAverage) {
         this.mVoteAverage = mVoteAverage;
     }
-
+    @Bindable
     public String getTitle() {
         return mTitle;
     }
@@ -88,7 +89,7 @@ public class Movie {
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
-
+    @Bindable
     public Float getPopularity() {
         return mPopularity;
     }
@@ -96,7 +97,7 @@ public class Movie {
     public void setPopularity(Float mPopularity) {
         this.mPopularity = mPopularity;
     }
-
+    @Bindable
     public String getPosterPath() {
         return mPosterPath;
     }
@@ -105,18 +106,20 @@ public class Movie {
         this.mPosterPath = mPosterPath;
     }
 
-    public void setOriginalLanguage(String mOriginalLanguage) {
-        this.mOriginalLanguage = mOriginalLanguage;
-    }
-
+    @Bindable
     public String getOriginalLanguage() {
         return mOriginalLanguage;
     }
 
+    public void setOriginalLanguage(String mOriginalLanguage) {
+        this.mOriginalLanguage = mOriginalLanguage;
+    }
+
+
     public void setOriginalTitle(String mOriginalTitle) {
         this.mOriginalTitle = mOriginalTitle;
     }
-
+    @Bindable
     public String getOriginalTitle() {
         return mOriginalTitle;
     }
@@ -124,7 +127,7 @@ public class Movie {
     public void setBackdropPath(String mBackdropPath) {
         this.mBackdropPath = mBackdropPath;
     }
-
+    @Bindable
     public String getBackdropPath() {
         return mBackdropPath;
     }
@@ -132,7 +135,7 @@ public class Movie {
     public void setAdult(Boolean mAdult) {
         this.mAdult = mAdult;
     }
-
+    @Bindable
     public Boolean getAdult() {
         return mAdult;
     }
@@ -140,7 +143,7 @@ public class Movie {
     public void setOverview(String mOverview) {
         this.mOverview = mOverview;
     }
-
+    @Bindable
     public String getOverview() {
         return mOverview;
     }
@@ -148,7 +151,7 @@ public class Movie {
     public void setReleaseDate(String mReleaseDate) {
         this.mReleaseDate = mReleaseDate;
     }
-
+    @Bindable
     public String getReleaseDate() {
         return mReleaseDate;
     }

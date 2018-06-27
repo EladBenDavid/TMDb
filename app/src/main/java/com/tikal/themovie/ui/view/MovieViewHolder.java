@@ -15,7 +15,8 @@ import com.tikal.themovie.ui.listeners.ItemClickListener;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private static final String IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/w500";
+    public static final String IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/w500";
+    private Movie movie;
     private TextView titleTextView;
     private TextView userratingTextView;
     private ImageView thumbnailImageView;
@@ -32,6 +33,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
     }
 
     public void bindTo(Movie movie) {
+        this.movie = movie;
         titleTextView.setText(movie.getTitle());
         userratingTextView.setText(Double.toString(movie.getVoteAverage()));
         RequestOptions requestOptions = new RequestOptions();
@@ -46,7 +48,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onClick(View view) {
         if (itemClickListener != null) {
-            itemClickListener.OnItemClick(view, getAdapterPosition()); // call the onClick in the OnItemClickListener
+            itemClickListener.OnItemClick(movie); // call the onClick in the OnItemClickListener
         }
     }
 }

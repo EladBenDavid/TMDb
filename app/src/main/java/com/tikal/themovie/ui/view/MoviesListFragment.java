@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tikal.themovie.R;
+import com.tikal.themovie.service.repository.storge.model.Movie;
 import com.tikal.themovie.ui.adapter.MoviesPageListAdapter;
 import com.tikal.themovie.ui.listeners.ItemClickListener;
+import com.tikal.themovie.ui.viewmodel.MovieDetailsViewModel;
 import com.tikal.themovie.ui.viewmodel.MoviesListViewModel;
 
 import java.io.IOException;
@@ -21,6 +23,8 @@ import java.io.IOException;
 public class MoviesListFragment extends Fragment implements ItemClickListener {
 
     protected MoviesListViewModel viewModel;
+    private MovieDetailsViewModel detailsViewModel;
+
     protected RecyclerView recyclerView;
     @Nullable
     @Override
@@ -48,10 +52,11 @@ public class MoviesListFragment extends Fragment implements ItemClickListener {
             pageListAdapter.setNetworkState(networkState);
         });
         recyclerView.setAdapter(pageListAdapter);
+        detailsViewModel = ViewModelProviders.of(getActivity()).get(MovieDetailsViewModel.class);
     }
 
     @Override
-    public void OnItemClick(View view, int position) {
-
+    public void OnItemClick(Movie movie) {
+        detailsViewModel.getMovie().postValue(movie);
     }
 }

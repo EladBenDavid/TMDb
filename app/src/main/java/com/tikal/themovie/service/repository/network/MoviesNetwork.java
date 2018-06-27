@@ -22,12 +22,11 @@ public class MoviesNetwork {
 
     final private static String TAG = MoviesNetwork.class.getSimpleName();
     final private LiveData<PagedList<Movie>> moviesPaged;
-
     final private LiveData<NetworkState> networkState;
 
     public MoviesNetwork(NetMoviesDataSourceFactory dataSourceFactory, PagedList.BoundaryCallback<Movie> boundaryCallback){
         PagedList.Config pagedListConfig = (new PagedList.Config.Builder()).setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(25).setPageSize(10).build();
+                .setInitialLoadSizeHint(Integer.MAX_VALUE).setPageSize(20).build();
         networkState = Transformations.switchMap(dataSourceFactory.getNetworkStatus(),
                 (Function<NetMoviesPageKeyedDataSource, LiveData<NetworkState>>)
                         NetMoviesPageKeyedDataSource::getNetworkState);

@@ -50,7 +50,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
     private void init(Context context) {
         instance.context = new WeakReference<>(context);
         PagedList.Config pagedListConfig = (new PagedList.Config.Builder()).setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(25).setPageSize(10).build();
+                .setInitialLoadSizeHint(Integer.MAX_VALUE).setPageSize(Integer.MAX_VALUE).build();
         Executor executor = Executors.newFixedThreadPool(5);
         DBMoviesDataSourceFactory dataSourceFactory = new DBMoviesDataSourceFactory(movieDao());
         LivePagedListBuilder livePagedListBuilder = new LivePagedListBuilder(dataSourceFactory, pagedListConfig);

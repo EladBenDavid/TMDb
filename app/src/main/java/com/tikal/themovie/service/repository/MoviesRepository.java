@@ -49,6 +49,7 @@ public class MoviesRepository {
             super.onZeroItemsLoaded();
             liveDataMerger.addSource(database.getMovies(), value -> {
                 liveDataMerger.setValue(value);
+                liveDataMerger.removeSource(database.getMovies());
             });
         }
     };
