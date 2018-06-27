@@ -11,7 +11,7 @@ public class Constants {
     public static final Type MOVIE_ARRAY_LIST_CLASS_TYPE = (new ArrayList<Movie>()).getClass();
     public static final String POPULAR_MOVIES_BASE_URL = "https://api.themoviedb.org/3/movie/popular/";
     private static final String IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/";
-    public static final String SMALL_IMAGE_URL_PREFIX = IMAGE_URL_PREFIX + "w300";
+    public static final String SMALL_IMAGE_URL_PREFIX = IMAGE_URL_PREFIX + "w200";
     public static final String BIG_IMAGE_URL_PREFIX = IMAGE_URL_PREFIX + "w500";
     public static final String API_KEY_REQUEST_PARAM = "api_key";
     public static final String LANGUAGE_REQUEST_PARAM = "language";

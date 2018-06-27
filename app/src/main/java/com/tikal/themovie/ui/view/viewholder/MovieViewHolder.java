@@ -40,7 +40,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
         userRatingTextView.setText(String.format("%1$,.2f", movie.getVoteAverage()));
         if(movie.getPosterPath() != null) {
             RequestOptions requestOptions = new RequestOptions();
-            requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+            requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
             String poster = SMALL_IMAGE_URL_PREFIX + movie.getPosterPath();
             Glide.with(itemView.getContext())
                     .load(poster)
