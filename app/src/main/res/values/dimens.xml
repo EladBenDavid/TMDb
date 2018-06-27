@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="movie_title_padding">10dp</dimen>
-    <dimen name="movie_title">15dp</dimen>
+    <dimen name="movie_title">15sp</dimen>
     <dimen name="movie_cover_height">160dp</dimen>
     <dimen name="user_rating_padding_button">5dp</dimen>
     <dimen name="card_movie_radius">0dp</dimen>
-    <dimen name="user_rating">12dp</dimen>
+    <dimen name="user_rating">12sp</dimen>
     <dimen name="card_margin">5dp</dimen>
 </resources>

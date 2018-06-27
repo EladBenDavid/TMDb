@@ -1,8 +1,9 @@
-package com.tikal.themovie;
+package com.tikal.themovie.ui.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.tikal.themovie.R;
 import com.tikal.themovie.ui.view.MoviesListFragment;
 
 public class MoviesActivity extends AppCompatActivity {

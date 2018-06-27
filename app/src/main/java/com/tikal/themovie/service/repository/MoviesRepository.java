@@ -23,7 +23,7 @@ public class MoviesRepository {
     final private MoviesDatabase database;
     final private MediatorLiveData liveDataMerger;
 
-    public MoviesRepository(Context context) {
+    private MoviesRepository(Context context) {
 
         NetMoviesDataSourceFactory dataSourceFactory = new NetMoviesDataSourceFactory();
 
@@ -35,15 +35,17 @@ public class MoviesRepository {
             liveDataMerger.setValue(value);
             Log.d(TAG, value.toString());
         });
+
+        // save the movies into db
         dataSourceFactory.getMovies().
                 observeOn(Schedulers.io()).
                 subscribe(movie -> {
                     database.movieDao().insertMovie(movie);
                 });
-        // liveDataMerger.addSource(database.getMovies(), value -> liveDataMerger.setValue(value));
 
     }
-    PagedList.BoundaryCallback<Movie> boundaryCallback = new PagedList.BoundaryCallback<Movie>() {
+
+    private PagedList.BoundaryCallback<Movie> boundaryCallback = new PagedList.BoundaryCallback<Movie>() {
         @Override
         public void onZeroItemsLoaded() {
             super.onZeroItemsLoaded();
@@ -53,7 +55,7 @@ public class MoviesRepository {
             });
         }
     };
-    public static MoviesRepository getInstance(Context context) throws IOException {
+    public static MoviesRepository getInstance(Context context){
         if(instance == null){
             instance = new MoviesRepository(context);
         }

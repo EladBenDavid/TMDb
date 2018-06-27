@@ -7,6 +7,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.tikal.themovie.Constants;
 import com.tikal.themovie.service.repository.storge.model.Movie;
 
 import java.lang.reflect.Type;
@@ -25,12 +26,12 @@ class MoviesJsonDeserializer implements JsonDeserializer {
         ArrayList<Movie> movies = null;
         try {
             JsonObject jsonObject = json.getAsJsonObject();
-            JsonArray moviesJsonArray = jsonObject.getAsJsonArray("results");
+            JsonArray moviesJsonArray = jsonObject.getAsJsonArray(Constants.MOVIES_ARRAY_DATA_TAG);
             movies = new ArrayList<>(moviesJsonArray.size());
             for (int i = 0; i < moviesJsonArray.size(); i++) {
                 // adding the converted wrapper to our container
-                Movie deserialized = context.deserialize(moviesJsonArray.get(i), Movie.class);
-                movies.add(deserialized);
+                Movie dematerialized = context.deserialize(moviesJsonArray.get(i), Movie.class);
+                movies.add(dematerialized);
             }
         } catch (JsonParseException e) {
             Log.e(TAG, String.format("Could not deserialize Movie element: %s", json.toString()));

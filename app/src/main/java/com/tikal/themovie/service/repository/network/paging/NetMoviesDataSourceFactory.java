@@ -7,7 +7,9 @@ import com.tikal.themovie.service.repository.storge.model.Movie;
 
 import rx.subjects.ReplaySubject;
 
-
+/*
+    Responsible for creating the DataSource so we can give it to the PagedList.
+ */
 public class NetMoviesDataSourceFactory extends DataSource.Factory {
 
     private static final String TAG = NetMoviesDataSourceFactory.class.getSimpleName();

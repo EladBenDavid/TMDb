@@ -1,4 +1,4 @@
-package com.tikal.themovie.ui.view;
+package com.tikal.themovie.ui.view.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

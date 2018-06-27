@@ -78,21 +78,6 @@
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"/>
 
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:id="@+id/tagline_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:text="tagline"
-                                style="@style/HeaderTextView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
                         <LinearLayout
                             android:id="@+id/overview_container"
                             android:orientation="vertical"

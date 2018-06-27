@@ -18,8 +18,10 @@ import com.tikal.themovie.R;
 import com.tikal.themovie.databinding.FragmentDetailsBinding;
 import com.tikal.themovie.ui.viewmodel.MovieDetailsViewModel;
 
+import static com.tikal.themovie.Constants.BIG_IMAGE_URL_PREFIX;
+
 public class DetailsFragment extends Fragment {
-    public static final String BIG_IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/w500";
+
     private MovieDetailsViewModel viewModel;
 
     @Nullable
@@ -29,7 +31,7 @@ public class DetailsFragment extends Fragment {
         FragmentDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false);
         viewModel = ViewModelProviders.of(getActivity()).get(MovieDetailsViewModel.class);
         View view = binding.getRoot();
-        viewModel.getMovie().observe(this, movie -> binding.setMovie(movie) );
+        viewModel.getMovie().observe(this, binding::setMovie);
         return view;
     }
 

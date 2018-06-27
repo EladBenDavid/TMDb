@@ -14,6 +14,9 @@ import com.tikal.themovie.service.repository.storge.model.NetworkState;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static com.tikal.themovie.Constants.LOADING_PAGE_SIZE;
+import static com.tikal.themovie.Constants.NUMBERS_OF_THREADS;
+
 /**
  * Created by Elad on 6/25/2018.
  */
@@ -26,11 +29,11 @@ public class MoviesNetwork {
 
     public MoviesNetwork(NetMoviesDataSourceFactory dataSourceFactory, PagedList.BoundaryCallback<Movie> boundaryCallback){
         PagedList.Config pagedListConfig = (new PagedList.Config.Builder()).setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(Integer.MAX_VALUE).setPageSize(20).build();
+                .setInitialLoadSizeHint(LOADING_PAGE_SIZE).setPageSize(LOADING_PAGE_SIZE).build();
         networkState = Transformations.switchMap(dataSourceFactory.getNetworkStatus(),
                 (Function<NetMoviesPageKeyedDataSource, LiveData<NetworkState>>)
                         NetMoviesPageKeyedDataSource::getNetworkState);
-        Executor executor = Executors.newFixedThreadPool(5);
+        Executor executor = Executors.newFixedThreadPool(NUMBERS_OF_THREADS);
         LivePagedListBuilder livePagedListBuilder = new LivePagedListBuilder(dataSourceFactory, pagedListConfig);
         moviesPaged = livePagedListBuilder.
                 setFetchExecutor(executor).

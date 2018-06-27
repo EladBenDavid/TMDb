@@ -1,9 +1,6 @@
 package com.tikal.themovie.ui.adapter;
 
-import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +10,8 @@ import com.tikal.themovie.R;
 import com.tikal.themovie.service.repository.storge.model.Movie;
 import com.tikal.themovie.service.repository.storge.model.NetworkState;
 import com.tikal.themovie.ui.listeners.ItemClickListener;
-import com.tikal.themovie.ui.view.MovieViewHolder;
-import com.tikal.themovie.ui.view.NetworkStateItemViewHolder;
+import com.tikal.themovie.ui.view.viewholder.MovieViewHolder;
+import com.tikal.themovie.ui.view.viewholder.NetworkStateItemViewHolder;
 
 /**
  * Created by Elad on 6/25/2018.
@@ -22,7 +19,6 @@ import com.tikal.themovie.ui.view.NetworkStateItemViewHolder;
 
 public class MoviesPageListAdapter extends PagedListAdapter<Movie, RecyclerView.ViewHolder> {
 
-    private static final String TAG = MoviesPageListAdapter.class.getSimpleName();
     private NetworkState networkState;
     private ItemClickListener itemClickListener;
 
@@ -44,19 +40,13 @@ public class MoviesPageListAdapter extends PagedListAdapter<Movie, RecyclerView.
         } else {
             throw new IllegalArgumentException("unknown view type");
         }
-
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.movie_item:
-                MovieViewHolder movieViewHolder = (MovieViewHolder) holder ;
-                movieViewHolder.bindTo(getItem(position));
-                if(position == 0){
-                    //movieViewHolder.onClick(null);
-                }
+                ((MovieViewHolder) holder).bindTo(getItem(position));
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindView(networkState);

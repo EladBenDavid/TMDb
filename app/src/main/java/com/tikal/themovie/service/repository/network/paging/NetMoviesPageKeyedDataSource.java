@@ -5,37 +5,36 @@ import android.arch.paging.PageKeyedDataSource;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.tikal.themovie.service.repository.network.api.MoviesService;
-import com.tikal.themovie.service.repository.network.api.ThemoviedbAPI;
+import com.tikal.themovie.service.repository.network.api.MoviesAPIInterface;
+import com.tikal.themovie.service.repository.network.api.TheMovieDBAPIClient;
 import com.tikal.themovie.service.repository.storge.model.Movie;
 import com.tikal.themovie.service.repository.storge.model.NetworkState;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import rx.subjects.ReplaySubject;
 
+import static com.tikal.themovie.Constants.API_KEY;
+import static com.tikal.themovie.Constants.LANGUAGE;
 /**
  * Created by Elad on 6/25/2018.
+ *
+ * Responsible for loading the data by page
  */
 
 public class NetMoviesPageKeyedDataSource extends PageKeyedDataSource<String, Movie> {
 
-    public static final String TAG = NetMoviesPageKeyedDataSource.class.getSimpleName();
-    private static final String API_KEY = "04f2f288263683f12131ae2ae1d348c6";
-    private static final String LANGUAGE = "en";
-    private final MoviesService moviesService;
+    private static final String TAG = NetMoviesPageKeyedDataSource.class.getSimpleName();
+    private final MoviesAPIInterface moviesService;
     private final MutableLiveData networkState;
     private final ReplaySubject<Movie> moviesObservable;
-    LoadInitialParams<String> initialParams;
-    LoadParams<String> afterParams;
 
-    private int pageCounter = 1;
-
-    public NetMoviesPageKeyedDataSource() {
-        moviesService = ThemoviedbAPI.createThemoviedbService();
+    NetMoviesPageKeyedDataSource() {
+        moviesService = TheMovieDBAPIClient.getClient();
         networkState = new MutableLiveData();
         moviesObservable = ReplaySubject.create();
     }
@@ -51,19 +50,16 @@ public class NetMoviesPageKeyedDataSource extends PageKeyedDataSource<String, Mo
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull final LoadInitialCallback<String, Movie> callback) {
         Log.i(TAG, "Loading Initial Rang, Count " + params.requestedLoadSize);
-        initialParams = params;
 
         networkState.postValue(NetworkState.LOADING);
-        Call<ArrayList<Movie>> callBack = moviesService.getMovies(API_KEY, LANGUAGE,1);
+        Call<ArrayList<Movie>> callBack = moviesService.getMovies(API_KEY, LANGUAGE, 1);
         callBack.enqueue(new Callback<ArrayList<Movie>>() {
             @Override
             public void onResponse(Call<ArrayList<Movie>> call, Response<ArrayList<Movie>> response) {
                 if (response.isSuccessful()) {
-                    callback.onResult(response.body(),Integer.toString(pageCounter++),Integer.toString(pageCounter++));
+                    callback.onResult(response.body(), Integer.toString(1), Integer.toString(2));
                     networkState.postValue(NetworkState.LOADED);
                     response.body().forEach(moviesObservable::onNext);
-                    initialParams = null;
-
                 } else {
                     Log.e("API CALL", response.message());
                     networkState.postValue(new NetworkState(NetworkState.Status.FAILED, response.message()));
@@ -73,13 +69,13 @@ public class NetMoviesPageKeyedDataSource extends PageKeyedDataSource<String, Mo
             @Override
             public void onFailure(Call<ArrayList<Movie>> call, Throwable t) {
                 String errorMessage;
-                errorMessage = t.getMessage();
-
-                if (t == null) {
+                if (t.getMessage() == null) {
                     errorMessage = "unknown error";
+                } else {
+                    errorMessage = t.getMessage();
                 }
                 networkState.postValue(new NetworkState(NetworkState.Status.FAILED, errorMessage));
-                callback.onResult(new ArrayList<>(),Integer.toString(pageCounter),Integer.toString(pageCounter));
+                callback.onResult(new ArrayList<>(), Integer.toString(1), Integer.toString(2));
             }
         });
     }
@@ -89,24 +85,21 @@ public class NetMoviesPageKeyedDataSource extends PageKeyedDataSource<String, Mo
     @Override
     public void loadAfter(@NonNull LoadParams<String> params, final @NonNull LoadCallback<String, Movie> callback) {
         Log.i(TAG, "Loading page " + params.key );
-        afterParams = params;
-
         networkState.postValue(NetworkState.LOADING);
-        int page = 0;
+        final AtomicInteger page = new AtomicInteger(0);
         try {
-            page = Integer.parseInt(params.key);
+            page.set(Integer.parseInt(params.key));
         }catch (NumberFormatException e){
             e.printStackTrace();
         }
-        Call<ArrayList<Movie>> callBack = moviesService.getMovies(API_KEY, LANGUAGE,page);
+        Call<ArrayList<Movie>> callBack = moviesService.getMovies(API_KEY, LANGUAGE,page.get());
         callBack.enqueue(new Callback<ArrayList<Movie>>() {
             @Override
             public void onResponse(Call<ArrayList<Movie>> call, Response<ArrayList<Movie>> response) {
                 if (response.isSuccessful()) {
-                    callback.onResult(response.body(),Integer.toString(pageCounter++));
+                    callback.onResult(response.body(),Integer.toString(page.get()+1));
                     networkState.postValue(NetworkState.LOADED);
                     response.body().forEach(moviesObservable::onNext);
-                    afterParams = null;
                 } else {
                     networkState.postValue(new NetworkState(NetworkState.Status.FAILED, response.message()));
                     Log.e("API CALL", response.message());
@@ -115,12 +108,14 @@ public class NetMoviesPageKeyedDataSource extends PageKeyedDataSource<String, Mo
 
             @Override
             public void onFailure(Call<ArrayList<Movie>> call, Throwable t) {
-                String errorMessage = t.getMessage();
-                if (errorMessage == null) {
+                String errorMessage;
+                if (t.getMessage() == null) {
                     errorMessage = "unknown error";
+                } else {
+                    errorMessage = t.getMessage();
                 }
                 networkState.postValue(new NetworkState(NetworkState.Status.FAILED, errorMessage));
-                callback.onResult(new ArrayList<>(),Integer.toString(pageCounter));
+                callback.onResult(new ArrayList<>(),Integer.toString(page.get()));
             }
         });
     }

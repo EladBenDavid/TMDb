@@ -1,4 +1,4 @@
-package com.tikal.themovie.ui.view;
+package com.tikal.themovie.ui.view.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,20 +12,22 @@ import com.tikal.themovie.R;
 import com.tikal.themovie.service.repository.storge.model.Movie;
 import com.tikal.themovie.ui.listeners.ItemClickListener;
 
+import static com.tikal.themovie.Constants.SMALL_IMAGE_URL_PREFIX;
+
 
 public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public static final String SMALL_IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/w200";
+
     private Movie movie;
     private TextView titleTextView;
-    private TextView userratingTextView;
+    private TextView userRatingTextView;
     private ImageView thumbnailImageView;
     private ItemClickListener itemClickListener;
 
     public MovieViewHolder(View view, ItemClickListener itemClickListener) {
         super(view);
         this.titleTextView = view.findViewById(R.id.title);
-        this.userratingTextView = view.findViewById(R.id.userrating);
+        this.userRatingTextView = view.findViewById(R.id.userrating);
         this.thumbnailImageView = view.findViewById(R.id.thumbnail);
         this.itemClickListener = itemClickListener;
         view.setOnClickListener(this);
@@ -35,7 +37,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public void bindTo(Movie movie) {
         this.movie = movie;
         titleTextView.setText(movie.getTitle());
-        userratingTextView.setText(Double.toString(movie.getVoteAverage()));
+        userRatingTextView.setText(String.format("%1$,.2f", movie.getVoteAverage()));
         if(movie.getPosterPath() != null) {
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);

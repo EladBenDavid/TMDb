@@ -21,6 +21,9 @@ import java.lang.ref.WeakReference;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static com.tikal.themovie.Constants.DATA_BASE_NAME;
+import static com.tikal.themovie.Constants.NUMBERS_OF_THREADS;
+
 
 /**
  * The Room database that contains the Users table
@@ -28,47 +31,32 @@ import java.util.concurrent.Executors;
 @Database(entities = {Movie.class}, version = 1)
 @TypeConverters(DateConverter.class)
 public abstract class MoviesDatabase extends RoomDatabase {
-    private static final String TAG = MoviesDatabase.class.getSimpleName();
+
     private static MoviesDatabase instance;
     public abstract MovieDao movieDao();
     private static final Object sLock = new Object();
-    LiveData<PagedList<Movie>> moviesPaged;
-    private WeakReference<Context> context;
+    private LiveData<PagedList<Movie>> moviesPaged;
+
     public static MoviesDatabase getInstance(Context context) {
         synchronized (sLock) {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
-                        MoviesDatabase.class, "TMBb.db")
+                        MoviesDatabase.class, DATA_BASE_NAME)
                         .build();
-                instance.init(context);
+                instance.init();
 
             }
             return instance;
         }
     }
 
-    private void init(Context context) {
-        instance.context = new WeakReference<>(context);
+    private void init() {
         PagedList.Config pagedListConfig = (new PagedList.Config.Builder()).setEnablePlaceholders(false)
                 .setInitialLoadSizeHint(Integer.MAX_VALUE).setPageSize(Integer.MAX_VALUE).build();
-        Executor executor = Executors.newFixedThreadPool(5);
+        Executor executor = Executors.newFixedThreadPool(NUMBERS_OF_THREADS);
         DBMoviesDataSourceFactory dataSourceFactory = new DBMoviesDataSourceFactory(movieDao());
         LivePagedListBuilder livePagedListBuilder = new LivePagedListBuilder(dataSourceFactory, pagedListConfig);
         moviesPaged = livePagedListBuilder.setFetchExecutor(executor).build();
-    }
-
-
-    public void insertMovies(LiveData<PagedList<Movie>> moviesList) {
-        moviesList.observeForever(
-                movies -> {
-                    Log.i(TAG, "insert movies size=" + movies.size());
-                    movies.forEach(movie -> {
-                                movieDao().insertMovie(movie);
-                                Log.i(TAG, "insert movie id=" + movie.getId());
-                            }
-
-                    );
-                });
     }
 
     public LiveData<PagedList<Movie>> getMovies() {
