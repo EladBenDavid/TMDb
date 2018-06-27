@@ -17,12 +17,12 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:id="@+id/thumbnail"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/posterImage" />
+                android:contentDescription="@string/posterImage"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/title"
@@ -33,18 +33,18 @@
                 android:paddingRight="@dimen/movie_title_padding"
                 android:paddingTop="@dimen/movie_title_padding"
                 android:textColor="@color/primaryText"
-                android:textSize="@dimen/movie_title"/>
+                android:textSize="@dimen/movie_title" />
 
             <TextView
                 android:id="@+id/userrating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
+                android:paddingBottom="@dimen/user_rating_padding_button"
                 android:paddingLeft="@dimen/movie_title_padding"
                 android:paddingRight="@dimen/movie_title_padding"
-                android:paddingBottom="@dimen/user_rating_padding_button"
                 android:textColor="@color/accent"
-                android:textSize="@dimen/user_rating"/>
+                android:textSize="@dimen/user_rating" />
 
         </RelativeLayout>
 
