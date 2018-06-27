@@ -2,6 +2,7 @@ package com.tikal.themovie.ui.adapter;
 
 import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,11 @@ public class MoviesPageListAdapter extends PagedListAdapter<Movie, RecyclerView.
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.movie_item:
-                ((MovieViewHolder) holder).bindTo(getItem(position));
+                MovieViewHolder movieViewHolder = (MovieViewHolder) holder ;
+                movieViewHolder.bindTo(getItem(position));
+                if(position == 0){
+                    //movieViewHolder.onClick(null);
+                }
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindView(networkState);
@@ -91,14 +96,4 @@ public class MoviesPageListAdapter extends PagedListAdapter<Movie, RecyclerView.
             notifyItemChanged(getItemCount() - 1);
         }
     }
-
-    @Override
-    public void onCurrentListChanged(@Nullable PagedList<Movie> currentList) {
-        super.onCurrentListChanged(currentList);
-        if(currentList != null && currentList.size() > 0) {
-            //itemClickListener.OnItemClick(currentList.get(0));
-        }
-    }
-
-
 }

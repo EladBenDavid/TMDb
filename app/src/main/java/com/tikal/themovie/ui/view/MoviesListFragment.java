@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ public class MoviesListFragment extends Fragment implements ItemClickListener {
     private MovieDetailsViewModel detailsViewModel;
 
     protected RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class MoviesListFragment extends Fragment implements ItemClickListener {
         return view;
     }
 
-    private void observersRegisters(){
+    private void observersRegisters() {
 
         final MoviesPageListAdapter pageListAdapter = new MoviesPageListAdapter(this);
         viewModel.getMovies().observe(this, pageListAdapter::submitList);
@@ -58,5 +61,16 @@ public class MoviesListFragment extends Fragment implements ItemClickListener {
     @Override
     public void OnItemClick(Movie movie) {
         detailsViewModel.getMovie().postValue(movie);
+        if (!detailsViewModel.getMovie().hasActiveObservers()) {
+            // Create fragment and give it an argument specifying the article it should show
+            DetailsFragment detailsFragment = new DetailsFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.fragmentsContainer, detailsFragment);
+            transaction.addToBackStack(null);
+            // Commit the transaction
+            transaction.commit();
+        }
     }
 }

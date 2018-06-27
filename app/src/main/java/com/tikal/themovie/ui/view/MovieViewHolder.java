@@ -15,7 +15,7 @@ import com.tikal.themovie.ui.listeners.ItemClickListener;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public static final String IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/w500";
+    public static final String SMALL_IMAGE_URL_PREFIX = "https://image.tmdb.org/t/p/w200";
     private Movie movie;
     private TextView titleTextView;
     private TextView userratingTextView;
@@ -38,7 +38,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
         userratingTextView.setText(Double.toString(movie.getVoteAverage()));
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-        String poster = IMAGE_URL_PREFIX + movie.getPosterPath();
+        String poster = SMALL_IMAGE_URL_PREFIX + movie.getPosterPath();
         Glide.with(itemView.getContext())
                 .load(poster)
                 .apply(requestOptions)
@@ -51,4 +51,5 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
             itemClickListener.OnItemClick(movie); // call the onClick in the OnItemClickListener
         }
     }
+
 }

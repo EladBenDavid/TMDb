@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MoviesActivity">
 
-    <FrameLayout
-        android:id="@+id/fragmentsContainer"
-        android:layout_width="fill_parent"
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.tikal.themovie.ui.view.MoviesListFragment"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1" />
 
