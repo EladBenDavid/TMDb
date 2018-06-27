@@ -10,10 +10,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.tikal.themovie.R;
 import com.tikal.themovie.databinding.FragmentDetailsBinding;
 import com.tikal.themovie.ui.viewmodel.MovieDetailsViewModel;
@@ -38,7 +37,7 @@ public class DetailsFragment extends Fragment {
     @BindingAdapter("android:src")
     public static void setImageUrl(ImageView view, String url) {
         if(url != null) {
-            Glide.with(view.getContext()).load(BIG_IMAGE_URL_PREFIX + url).into(view);
+            Picasso.get().load(BIG_IMAGE_URL_PREFIX + url).into(view);
         }
     }
 }

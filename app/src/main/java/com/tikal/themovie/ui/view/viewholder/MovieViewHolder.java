@@ -5,9 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 import com.tikal.themovie.R;
 import com.tikal.themovie.service.repository.storge.model.Movie;
 import com.tikal.themovie.ui.listeners.ItemClickListener;
@@ -39,13 +38,8 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
         titleTextView.setText(movie.getTitle());
         userRatingTextView.setText(String.format("%1$,.2f", movie.getVoteAverage()));
         if(movie.getPosterPath() != null) {
-            RequestOptions requestOptions = new RequestOptions();
-            requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
             String poster = SMALL_IMAGE_URL_PREFIX + movie.getPosterPath();
-            Glide.with(itemView.getContext())
-                    .load(poster)
-                    .apply(requestOptions)
-                    .into(thumbnailImageView);
+            Picasso.get().load(poster).into(thumbnailImageView);
         }
     }
 

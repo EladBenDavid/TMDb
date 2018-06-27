@@ -50,8 +50,8 @@ dependencies {
     // recyclerview
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    //glide
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
     // rx
     implementation 'io.reactivex:rxjava:1.2.7'
     // Parcelable
