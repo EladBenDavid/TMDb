@@ -36,13 +36,15 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
         this.movie = movie;
         titleTextView.setText(movie.getTitle());
         userratingTextView.setText(Double.toString(movie.getVoteAverage()));
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-        String poster = SMALL_IMAGE_URL_PREFIX + movie.getPosterPath();
-        Glide.with(itemView.getContext())
-                .load(poster)
-                .apply(requestOptions)
-                .into(thumbnailImageView);
+        if(movie.getPosterPath() != null) {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+            String poster = SMALL_IMAGE_URL_PREFIX + movie.getPosterPath();
+            Glide.with(itemView.getContext())
+                    .load(poster)
+                    .apply(requestOptions)
+                    .into(thumbnailImageView);
+        }
     }
 
     @Override

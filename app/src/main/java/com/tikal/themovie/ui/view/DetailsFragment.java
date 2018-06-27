@@ -26,18 +26,17 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate view and obtain an instance of the binding class.
-        FragmentDetailsBinding binding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_details);
+        FragmentDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false);
         viewModel = ViewModelProviders.of(getActivity()).get(MovieDetailsViewModel.class);
-        viewModel.getMovie().observe(this, movie -> binding.setMovie(movie) );
         View view = binding.getRoot();
-        if(view.getParent()!=null) {
-            ((FrameLayout) view.getParent()).removeView(view);
-        }
+        viewModel.getMovie().observe(this, movie -> binding.setMovie(movie) );
         return view;
     }
 
     @BindingAdapter("android:src")
     public static void setImageUrl(ImageView view, String url) {
-        Glide.with(view.getContext()).load(BIG_IMAGE_URL_PREFIX + url).into(view);
+        if(url != null) {
+            Glide.with(view.getContext()).load(BIG_IMAGE_URL_PREFIX + url).into(view);
+        }
     }
 }
