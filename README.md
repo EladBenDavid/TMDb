@@ -24,12 +24,6 @@ Android Architecture Components:
 
 Room Persistence Library - The application store movies content for display it in offline mode.
 
-You can also:
-  - Import and save files from GitHub, Dropbox, Google Drive and One Drive
-  - Drag and drop markdown and HTML files into Dillinger
-
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
-
 Data Binding Library - Bind UI components in details layouts to data sources in details fragment using a declarative format.
 
 Retrofit2:
@@ -45,6 +39,8 @@ RecyclerView  - Display the movies list in effectively.
 Parcelable - for transfer the objects between components.
 
 Reactivex - Use the observable pattern for display indicatation when application loading content. 
+
+This project build as home assignment as part of work acceptance at [Tikal Knowledge](https://www.tikalk.com/).
 
 License
 ----
