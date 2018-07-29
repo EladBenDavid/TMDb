@@ -29,7 +29,6 @@ import static com.tikal.themovie.Constants.NUMBERS_OF_THREADS;
  * The Room database that contains the Users table
  */
 @Database(entities = {Movie.class}, version = 1)
-@TypeConverters(DateConverter.class)
 public abstract class MoviesDatabase extends RoomDatabase {
 
     private static MoviesDatabase instance;

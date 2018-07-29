@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +62,7 @@ public class MoviesListFragment extends Fragment implements ItemClickListener {
         detailsViewModel.getMovie().postValue(movie);
         if (!detailsViewModel.getMovie().hasActiveObservers()) {
             // Create fragment and give it an argument specifying the article it should show
-            DetailsFragment detailsFragment = new DetailsFragment();
+            MovieDetailsFragment detailsFragment = new MovieDetailsFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack so the user can navigate back

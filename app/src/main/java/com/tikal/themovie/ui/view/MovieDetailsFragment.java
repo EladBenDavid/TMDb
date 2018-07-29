@@ -19,7 +19,7 @@ import com.tikal.themovie.ui.viewmodel.MovieDetailsViewModel;
 
 import static com.tikal.themovie.Constants.BIG_IMAGE_URL_PREFIX;
 
-public class DetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment {
 
     private MovieDetailsViewModel viewModel;
 

@@ -40,7 +40,6 @@ Parcelable - for transfer the objects between components.
 
 Reactivex - Use the observable pattern for display indicatation when application loading content. 
 
-This project build as home assignment as part of work acceptance at [Tikal Knowledge](https://www.tikalk.com/).
 
 License
 ----

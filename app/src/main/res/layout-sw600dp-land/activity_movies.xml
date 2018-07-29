@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.tikal.themovie.ui.view.DetailsFragment"
+        android:name="com.tikal.themovie.ui.view.MovieDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

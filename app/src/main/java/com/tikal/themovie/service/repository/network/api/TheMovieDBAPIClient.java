@@ -20,7 +20,7 @@ public class TheMovieDBAPIClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         Gson gson = new GsonBuilder()
-                // we remove from the response some wrapper tags from our RedditPosts array
+                // we remove from the response some wrapper tags from our movies array
                 .registerTypeAdapter(MOVIE_ARRAY_LIST_CLASS_TYPE, new MoviesJsonDeserializer())
                 .create();
 
