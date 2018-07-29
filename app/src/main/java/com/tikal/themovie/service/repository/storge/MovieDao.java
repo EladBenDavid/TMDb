@@ -20,7 +20,11 @@ public interface MovieDao {
 
     /**
      * Get the Movies from the table.
-     *
+     * -------------------------------
+     * Since the DB use as caching, we don't do it as LiveData.
+     * We don't need to get update every time the database update.
+     * We using the get query when application start. So, we able to display
+     * data fast and in case we don't have connection we able to work offline.
      * @return the movies from the table
      */
     @Query("SELECT * FROM movies")
