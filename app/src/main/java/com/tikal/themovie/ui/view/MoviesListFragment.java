@@ -37,11 +37,6 @@ public class MoviesListFragment extends Fragment implements ItemClickListener {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         viewModel = ViewModelProviders.of(getActivity()).get(MoviesListViewModel.class);
-        try {
-            viewModel.initRepository(this.getActivity().getApplicationContext());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         observersRegisters();
         return view;
     }
