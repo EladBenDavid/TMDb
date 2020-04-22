@@ -4,18 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".ui.view.MoviesActivity">
+    tools:context=".ui.view.MoviesActivity"
+    android:baselineAligned="false">
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.tikal.themovie.ui.view.MoviesListFragment"
+        android:name="com.glassbox.themovie.ui.view.MoviesListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.tikal.themovie.ui.view.MovieDetailsFragment"
+        android:name="com.glassbox.themovie.ui.view.MovieDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
