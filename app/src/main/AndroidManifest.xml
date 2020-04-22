@@ -9,17 +9,13 @@
         android:supportsRtl="true"
         android:name="com.glassbox.themovie.TMDBApplication"
         android:theme="@style/AppTheme">
-        <activity android:name="com.glassbox.themovie.ui.view.MoviesActivity">
+        <activity android:name="com.glassbox.themovie.ui.view.MoviesActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.clarisite.mobile.GlassboxJob" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE">
-            <meta-data android:name="url" android:value="http://63.33.48.79:8011"/>
-            <meta-data android:name="appid" android:value="02E13F0B-C69A-AB49-C63C-01387A1D264F"/>
-        </service>
     </application>
 
 </manifest>
