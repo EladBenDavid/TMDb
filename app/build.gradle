@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.glassbox.themovie"
+        applicationId "com.elad.themovie"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
